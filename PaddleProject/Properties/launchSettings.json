@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "WebApplication5": {
+    "PaddleProject": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "FirstRazor",

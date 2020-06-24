@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace WebApplication5
+namespace PaddleProject
 {
     public class TestMessage
     {

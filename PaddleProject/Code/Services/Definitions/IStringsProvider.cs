@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace WebApplication5
+namespace PaddleProject
 {
     public interface IStringsProvider
     {
