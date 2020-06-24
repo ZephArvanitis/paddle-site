@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+      "noImplicitAny": false,
+      "noEmitOnError": true,
+      "removeComments": false,
+      "sourceMap": true,
+      "target": "ES5",
+      "module": "commonjs"
+    },
+    "include": [
+      "source/ts/**/*"
+    ],
+    "exclude": [
+      "**/bin",
+      //"**/bower_components",
+      //"**/jspm_packages",
+      "**/node_modules",
+      //"**/obj",
+      //"**/platforms"
+      "wwwroot"
+    ]
+  }
