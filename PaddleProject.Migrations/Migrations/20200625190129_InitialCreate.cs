@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PaddleProject.Migrations.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,10 +12,9 @@ namespace PaddleProject.Migrations.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    DateCreated = table.Column<DateTime>(nullable: false)
+                    Email = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -27,7 +26,7 @@ namespace PaddleProject.Migrations.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     WidthCm = table.Column<double>(nullable: false),
                     LengthCm = table.Column<double>(nullable: false),
                     LoomHeightCm = table.Column<double>(nullable: false),
@@ -46,9 +45,11 @@ namespace PaddleProject.Migrations.Migrations
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     PaddleDimensionID = table.Column<int>(nullable: false),
-                    MakerID = table.Column<int>(nullable: false)
+                    MakerID = table.Column<int>(nullable: false),
+                    ScaleFactor = table.Column<double>(nullable: false, defaultValue: 1.0),
+                    DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "getdate()")
                 },
                 constraints: table =>
                 {

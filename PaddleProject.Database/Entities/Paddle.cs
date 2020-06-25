@@ -11,5 +11,9 @@ namespace PaddleProject.Database.Entities
         public int PaddleDimensionID { get; set; }
 
         public int MakerID { get; set; }
+
+        public double ScaleFactor { get; set; }
+
+        public DateTime DateCreated { get; set; }
     }
 }

@@ -26,10 +26,14 @@ namespace PaddleProject.Migrations
             var serviceProvider = new ServiceCollection()
                 .AddDbContext<MainDbContext>(dbContextOptionsBuilder =>
                 {
-                    dbContextOptionsBuilder.UseSqlServer(connectionString, sqlServerDbContextOptionsBuilder =>
+                    dbContextOptionsBuilder.UseSqlite(connectionString, sqlliteDbContextOptionsBuilder =>
                     {
-                        sqlServerDbContextOptionsBuilder.MigrationsAssembly("PaddleProject.Migrations");
+                        sqlliteDbContextOptionsBuilder.MigrationsAssembly("PaddleProject.Migrations");
                     });
+                    //dbContextOptionsBuilder.UseSqlServer(connectionString, sqlServerDbContextOptionsBuilder =>
+                    //{
+                    //    sqlServerDbContextOptionsBuilder.MigrationsAssembly("PaddleProject.Migrations");
+                    //});
                 })
 
                 .BuildServiceProvider()

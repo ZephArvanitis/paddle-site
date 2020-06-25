@@ -20,8 +20,15 @@ namespace PaddleProject.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Don't think I need anything here, but this is where I could manually
-            // add foreign keys.
+            // Add default values here.
+            modelBuilder.Entity<Entities.Paddle>()
+                .Property(b => b.ScaleFactor)
+                .HasDefaultValue(1.0);
+
+            modelBuilder.Entity<Entities.Paddle>()
+                .Property(b => b.DateCreated)
+                .HasDefaultValueSql("getdate()");
+
             // modelBuilder.Entity<Entities.Person>().HasAlternateKey(x => x.Name);
         }
     }
