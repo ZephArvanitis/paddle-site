@@ -1,0 +1,326 @@
+@page
+@model PaddleProject.Pages.Step1Model
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Step 1</title>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    
+    <style>
+        /* Header/logo Title */
+        .header {
+            padding: 60px;
+            text-align: center;
+            background: #1abc9c;
+            color: white;
+        }
+        .header a {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Make your own Greenland-style paddle</h1>
+        <p><i>Based on <a href="http://www.thewoodshop.20m.com/graphics/kayak/greenland_03.pdf">Chuck Holst's instructions</i></a></p>
+        <h2>@this.Model.PaddleCount().Result paddles made to date!</h2>
+    </div>
+    <div class="container" style="width: 75">
+
+    <h1>Step 1a: Establish Paddle Dimensions</h1>
+
+    @Html.AntiForgeryToken()
+
+    <p>First off, we figure out what dimensions your paddle will need. If you know your ideal 
+        paddle dimensions (for instance, if you have a sample paddle you love), hit skip and enter 
+        the relevant measurements on the next page. If you're new or otherwise want to make a paddle to fit
+        your body, enter some dimensions about yourself below, then hit 'Calculate Paddle Dimensions'
+        to (*gasp*) calculate your paddle's dimensions.</p>
+
+    <button id="skip1aButton" class="btn">Skip to Paddle Dimensions</button>
+
+    <form>
+        <div class="form-group">
+            <label for="inputArmSpan">Arm span</label>
+            <input class="form-control" id="inputArmSpan" aria-describedby="armSpanHelp" placeholder="Enter your arm span (in @this.Model.Unit)">
+            <small id="armSpanHelp" class="form-text text-muted">The full width of your arms when they're spread wide.</small>
+        </div>
+        <div class="form-group">
+            <label for="inputCubit">Length from elbow to wrist or palm</label>
+            <input class="form-control" id="inputCubit" aria-describedby="cubitHelp" placeholder="Enter the length from elbow to wrist or palm (in @this.Model.Unit).">
+            <small id="cubitHelp" class="form-text text-muted">Use the length all the way to your palm if you like longer paddles.</small>
+        </div>
+        <div class="form-group">
+            <label for="inputShoulderWidth">Shoulder width</label>
+            <input class="form-control" id="inputShoulderWidth" aria-describedby="shoulderWidthHelp" placeholder="Enter the width of your shoulders at rest (in @this.Model.Unit).">
+            <small id="shoulderWidthHelp" class="form-text text-muted">You can measure this by holding a tape measure or string between your thumbs and the side of your hands, then pressing your upper arms against your ribs and putting your hands out in front of you with thumbs upward.</small>
+        </div>
+        <div class="form-group">
+            <label for="inputWidth">Hand 'C' width</label>
+            <input class="form-control" id="inputWidth" aria-describedby="widthHelp" placeholder="Enter the width of your paddle tip (in @this.Model.Unit).">
+            <small id="widthHelp" class="form-text text-muted">Make a 'C' with you hand and measure from the second knuckle of your pointer finger to the webbing of your thumb. Typically around 3 inches for adults.</small>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="wideKayak">
+            <label class="form-check-label" for="wideKayak">My kayak is more than 22 inches wide.</label>
+        </div>
+
+        <div id="units">
+        <label class="radio-inline"><input type="radio" id="unitinch" name="unitradio" checked>Inches</label>
+        <label class="radio-inline"><input type="radio" id="unitcm" name="unitradio">Centimeters</label>
+        </div>
+        <br>
+    </form>
+
+    <button id="CalculateDimensionsButton" class="btn btn-primary">Calculate Paddle Dimensions</button>
+
+    </div>
+
+    <p style="margin-bottom:10cm;">
+
+    <div class="container" style="width: 75">
+
+    <h1 id="step1b">Step 1b: Finalize Paddle Dimensions</h1>
+
+    <p>If you entered your measurements above, double-check the dimensions below, but 
+        you should be good to go. If you're entering your paddle dimensions directly, this is your moment.
+        Have at it.</p>
+
+    <form>
+        <div class="form-group">
+            <label for="inputPaddleLength">Paddle length</label>
+            <input class="form-control" id="inputPaddleLength" aria-describedby="paddleLengthHelp" placeholder="Total paddle length (in @this.Model.Unit)">
+            <small id="paddleLengthHelp" class="form-text text-muted">Your wingspan plus elbow-to-hand length.</small>
+        </div>
+        <div class="form-group">
+            <label for="inputTipWidth">Tip width</label>
+            <input class="form-control" id="inputTipWidth" aria-describedby="widthHelp" placeholder="Paddle width at tip (in @this.Model.Unit)">
+            <small id="widthHelp" class="form-text text-muted">From your hand 'C' dimension.</small>
+        </div>
+        
+        <div class="form-group">
+            <label for="inputLoomLength">Loom length</label>
+            <input class="form-control" id="inputLoomLength" aria-describedby="loomLengthHelp" placeholder="Length of your loom (in @this.Model.Unit)">
+            <small id="loomLengthHelp" class="form-text text-muted">Based on your shoulder width, increased for wider kayaks.</small>
+        </div>
+
+        <p>The four variables below are approximately the same for most full-size paddles. Feel free to edit based on your
+            preferences, but if you're new, we recommend you leave these as-is.
+        </p>
+
+        <div class="row">
+        <div class="col-sm-6">
+        <div class="form-group">
+            <label for="inputTipDepth">Tip thickness</label>
+            <input class="form-control" id="inputTipDepth" aria-describedby="tipDepthHelp" placeholder="Thickness of the blank at the tip (in @this.Model.Unit)">
+            <small id="tipDepthHelp" class="form-text text-muted">Chuck Holst recommends 0.5 inches, which can feel a bit bulky.</small>
+        </div>
+        </div>
+        <div class="col-sm-6">
+        <div class="form-group">
+            <label for="inputShoulderLength">Length of the blade's shoulder</label>
+            <input class="form-control" id="inputShoulderLength" aria-describedby="paddleLengthHelp" placeholder="Length over which the loom eases into the blade (in @this.Model.Unit)">
+            <small id="paddleLengthHelp" class="form-text text-muted">Chuck Holst recommends between 1 and 2 inches. Smaller values will mean a steeper loom.</small>
+        </div>
+        </div>
+        </div>
+        
+        
+
+        <h4>Loom dimensions</h4>
+        <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="inputLoomHeight">Loom thickness</label>
+                <input class="form-control" id="inputLoomHeight" aria-describedby="loomHeightHelp" placeholder="Height of the loom (in @this.Model.Unit)">
+                <small id="loomHeightHelp" class="form-text text-muted">The short axis of the oval that is the loom's cross-section. Typically 1.125-1.25 inches. If in doubt, pick a larger number here and reduce it later (#sandpaper).</small>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="inputLoomDepth">Loom depth</label>
+                <input class="form-control" id="inputLoomDepth" aria-describedby="paddleLengthHelp" placeholder="Depth of the loom (in @this.Model.Unit)">
+                <small id="paddleLengthHelp" class="form-text text-muted">The long axis of the oval that is the loom's cross-section. Typically, pick the thickness of your 2x4, usually around 1.5 inches.</small>
+            </div>
+        </div>
+
+        </div>
+        <br>
+    </form>
+
+    <button id="ConfirmDimensionsButton" class="btn btn-primary">Confirm Paddle Dimensions</button>
+
+    <p style="margin-bottom:10cm;">
+
+    <div class="container" style="width: 75">
+
+    <h1 id="step2">Step 2: Mark and cut narrow faces</h1>
+
+    <p>It's time to start actually making cuts! Double check all your measurements, then mark on the short edge of 
+        the 2x4. You'll need these values:</p>
+
+    <table style="width:50%">
+        <tr>
+            <th>Variable</th>
+            <th>Value (inches)</th>
+        </tr>
+        <tr>
+            <td>Overall length (L)</td>
+            <td class="paddleLength"></td>
+        </tr>
+        <tr>
+            <td>Loom length (S)</td>
+            <td class="loomLength"></td>
+        </tr>
+        <tr>
+            <td>Loom thickness</td>
+            <td class="loomDepth"></td>
+        </tr>
+        <tr>
+            <td>Tip thickness</td>
+            <td class="tipDepth"></td>
+        </tr>
+    </table>
+
+    <img src="../images/paddle-step2.png" alt="Step 2 schematic" class="img-responsive"/>
+
+
+    <button id="doneWithStep2Button" class="btn btn-primary">Done with step 2</button>
+
+    </div>
+
+    <p style="margin-bottom:10cm;">
+
+    <div class="container" style="width: 75">
+
+    <h1 id="step3">Step 3: Mark and cut wide faces</h1>
+
+    <p>This is the step where it starts to actually look like a paddle. Have fun! You'll need these values:</p>
+
+    <table style="width:50%">
+        <tr>
+            <th>Variable</th>
+            <th>Value (inches)</th>
+        </tr>
+        <tr>
+            <td>Tip width (W)</td>
+            <td class="tipWidth"></td>
+        </tr>
+        <tr>
+            <td>Loom length (S)</td>
+            <td class="loomLength"></td>
+        </tr>
+        <tr>
+            <td>Loom height (T)</td>
+            <td class="loomHeight"></td>
+        </tr>
+        <tr>
+            <td>Shoulder length</td>
+            <td class="shoulderLength"></td>
+        </tr>
+    </table>
+
+    <img src="../images/paddle-step3.png" alt="Step 3 schematic" class="img-responsive"/>
+
+
+    <button id="doneWithStep3Button" class="btn btn-primary">Done with step 3</button>
+
+    </div>
+
+    <p style="margin-bottom:10cm;">
+
+    <div class="container" style="width: 75">
+
+    <h1 id="step4">Step 4: Mark and cut bevels</h1>
+
+    <p>This is the step where the true shape of the paddle emerges. You'll draw bevel lines on both the
+        wide and narrow sides, then using something like a drawknife to connect those lines on all sorts of funky
+        angles. You'll need these values:</p>
+
+    <table style="width:50%">
+        <tr>
+            <th>Variable</th>
+            <th>Value (inches)</th>
+        </tr>
+        <tr>
+            <td>Overall length (L)</td>
+            <td class="paddleLength"></td>
+        </tr>
+        <tr>
+            <td>Loom length (S)</td>
+            <td class="loomLength"></td>
+        </tr>
+        <tr>
+            <td>Loom thickness (T)</td>
+            <td class="loomDepth"></td>
+        </tr>
+        <tr>
+            <td>Tip thickness</td>
+            <td class="tipDepth"></td>
+        </tr>
+    </table>
+
+    <img src="../images/paddle-step4.png" alt="Step 4 schematic" class="img-responsive"/>
+
+
+    <button id="doneWithStep4Button" class="btn btn-primary">Done with step 4</button>
+
+    </div>
+
+    <p style="margin-bottom:10cm;">
+
+    <div class="container" style="width: 75">
+
+    <h1 id="step5">Step 5: Round corners and finish!</h1>
+
+    <p>At this point, use a drawknife or similar tool to round corners iteratively, then sand everything down 
+        until it's nice and smooth. Make sure to get the paddle wet to raise the grain before a final sanding
+        and any finishing (Chuck Holst recommends Tung Oil, optionally with Japan drier to speed up the finish).
+    </p>
+
+    We'd love if you register that you made your paddle! Join @this.Model.PaddleCount().Result other Makers! We won't
+    use your email address for literally anything, ever.
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="inputName">Name</label>
+                <input class="form-control" id="inputName" placeholder="Your kayaking name!">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="inputEmail">Email address</label>
+                <input class="form-control" type="email" id="inputEmail" aria-describedby="emailHelp" placeholder="Your email">
+                <small id="emailHelp" class="form-text text-muted">Your email is safe with us. I literally couldn't use it if I tried.</small>
+            </div>
+        </div>
+
+        </div>
+
+    <button id="doneWithPaddleButton" class="btn btn-primary">I'm done with my paddle!</button>
+
+    </div>
+
+    <script src="~/ts-out/Step1.js"></script>
+</body>
+
+</html>

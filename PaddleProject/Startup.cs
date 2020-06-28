@@ -34,6 +34,7 @@ namespace PaddleProject
                 .UseDefaultFiles()
                 .UseMvcWithDefaultRoute()
                 .UseStaticFiles()
+                .UseStaticFiles(    )
                 ;
 
             app.Run(async (context) =>

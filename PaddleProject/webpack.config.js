@@ -7,7 +7,7 @@ module.exports = {
     entry: {
         "First": "./source/ts/First.ts",
         "Third": "./source/ts/Third.ts",
-        "FirstRazor": "./source/ts/Pages/FirstRazor.ts",
+        "Step1": "./source/ts/Pages/Step1.ts",
     },
     output: {
         path: path.resolve(__dirname, "wwwroot", "ts-out"),

@@ -14,5 +14,13 @@
     "typescript": "^3.9.5",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "@types/jquery": "^3.5.0",
+    "help": "^3.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "../.git"
   }
 }

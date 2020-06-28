@@ -1,6 +1,6 @@
 export class TestMessage
 {
-    constructor(public TheValueStuff: string)
+    constructor(public Value: string)
     {
     }
 }
